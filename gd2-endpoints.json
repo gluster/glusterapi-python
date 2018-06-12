@@ -1,0 +1,618 @@
+[
+    {
+        "description": "",
+        "methods": "GET",
+        "name": "GetVersion",
+        "path": "/version",
+        "request-type": "",
+        "response-type": "api.VersionResp"
+    },
+    {
+        "description": "",
+        "methods": "POST",
+        "name": "VolumeCreate",
+        "path": "/volumes",
+        "request-type": "api.VolCreateReq",
+        "response-type": "api.VolumeCreateResp"
+    },
+    {
+        "description": "",
+        "methods": "POST",
+        "name": "VolumeExpand",
+        "path": "/volumes/{volname}/expand",
+        "request-type": "api.VolExpandReq",
+        "response-type": "api.VolumeExpandResp"
+    },
+    {
+        "description": "",
+        "methods": "POST",
+        "name": "VolumeOptions",
+        "path": "/volumes/{volname}/options",
+        "request-type": "api.VolOptionReq",
+        "response-type": "api.VolumeOptionResp"
+    },
+    {
+        "description": "",
+        "methods": "DELETE",
+        "name": "VolumeReset",
+        "path": "/volumes/{volname}/options",
+        "request-type": "api.VolOptionResetReq",
+        "response-type": ""
+    },
+    {
+        "description": "",
+        "methods": "GET",
+        "name": "OptionGroupList",
+        "path": "/volumes/options-group",
+        "request-type": "",
+        "response-type": "api.OptionGroupListResp"
+    },
+    {
+        "description": "",
+        "methods": "POST",
+        "name": "OptionGroupCreate",
+        "path": "/volumes/options-group",
+        "request-type": "api.OptionGroupReq",
+        "response-type": ""
+    },
+    {
+        "description": "",
+        "methods": "DELETE",
+        "name": "OptionGroupDelete",
+        "path": "/volumes/options-group/{groupname}",
+        "request-type": "",
+        "response-type": ""
+    },
+    {
+        "description": "",
+        "methods": "DELETE",
+        "name": "VolumeDelete",
+        "path": "/volumes/{volname}",
+        "request-type": "",
+        "response-type": ""
+    },
+    {
+        "description": "",
+        "methods": "GET",
+        "name": "VolumeInfo",
+        "path": "/volumes/{volname}",
+        "request-type": "",
+        "response-type": "api.VolumeGetResp"
+    },
+    {
+        "description": "",
+        "methods": "GET",
+        "name": "VolumeBricksStatus",
+        "path": "/volumes/{volname}/bricks",
+        "request-type": "",
+        "response-type": "api.BricksStatusResp"
+    },
+    {
+        "description": "",
+        "methods": "GET",
+        "name": "VolumeStatus",
+        "path": "/volumes/{volname}/status",
+        "request-type": "",
+        "response-type": "api.VolumeStatusResp"
+    },
+    {
+        "description": "",
+        "methods": "GET",
+        "name": "VolumeList",
+        "path": "/volumes",
+        "request-type": "",
+        "response-type": "api.VolumeListResp"
+    },
+    {
+        "description": "",
+        "methods": "POST",
+        "name": "VolumeStart",
+        "path": "/volumes/{volname}/start",
+        "request-type": "api.VolumeStartReq",
+        "response-type": "api.VolumeStartResp"
+    },
+    {
+        "description": "",
+        "methods": "POST",
+        "name": "VolumeStop",
+        "path": "/volumes/{volname}/stop",
+        "request-type": "",
+        "response-type": "api.VolumeStopResp"
+    },
+    {
+        "description": "",
+        "methods": "POST",
+        "name": "Statedump",
+        "path": "/volumes/{volname}/statedump",
+        "request-type": "api.VolStatedumpReq",
+        "response-type": ""
+    },
+    {
+        "description": "",
+        "methods": "POST",
+        "name": "VolfilesGenerate",
+        "path": "/volfiles",
+        "request-type": "",
+        "response-type": ""
+    },
+    {
+        "description": "",
+        "methods": "GET",
+        "name": "VolfilesGet",
+        "path": "/volfiles",
+        "request-type": "",
+        "response-type": ""
+    },
+    {
+        "description": "",
+        "methods": "GET",
+        "name": "VolfilesGet",
+        "path": "/volfiles/{volfileid:.*}",
+        "request-type": "",
+        "response-type": ""
+    },
+    {
+        "description": "",
+        "methods": "POST",
+        "name": "EditVolume",
+        "path": "/volumes/{volname}/edit",
+        "request-type": "api.VolEditReq",
+        "response-type": "api.VolumeEditResp"
+    },
+    {
+        "description": "",
+        "methods": "POST",
+        "name": "SnapshotCreate",
+        "path": "/snapshot",
+        "request-type": "",
+        "response-type": ""
+    },
+    {
+        "description": "",
+        "methods": "POST",
+        "name": "SnapshotActivate",
+        "path": "/snapshot/{snapname}/activate",
+        "request-type": "",
+        "response-type": ""
+    },
+    {
+        "description": "",
+        "methods": "POST",
+        "name": "SnapshotDeactivate",
+        "path": "/snapshot/{snapname}/deactivate",
+        "request-type": "",
+        "response-type": ""
+    },
+    {
+        "description": "",
+        "methods": "POST",
+        "name": "SnapshotClone",
+        "path": "/snapshot/{snapname}/clone",
+        "request-type": "",
+        "response-type": ""
+    },
+    {
+        "description": "",
+        "methods": "POST",
+        "name": "SnapshotRestore",
+        "path": "/snapshot/{snapname}/restore",
+        "request-type": "",
+        "response-type": ""
+    },
+    {
+        "description": "",
+        "methods": "GET",
+        "name": "SnapshotInfo",
+        "path": "/snapshot/{snapname}",
+        "request-type": "",
+        "response-type": ""
+    },
+    {
+        "description": "",
+        "methods": "GET",
+        "name": "SnapshotListAll",
+        "path": "/snapshots",
+        "request-type": "",
+        "response-type": ""
+    },
+    {
+        "description": "",
+        "methods": "DELETE",
+        "name": "SnapshotDelete",
+        "path": "/snapshot/{snapname}",
+        "request-type": "",
+        "response-type": ""
+    },
+    {
+        "description": "",
+        "methods": "GET",
+        "name": "SnapshotConfigGet",
+        "path": "/snapshot/config",
+        "request-type": "",
+        "response-type": ""
+    },
+    {
+        "description": "",
+        "methods": "PUT",
+        "name": "SnapshotConfigSet",
+        "path": "/snapshot/config",
+        "request-type": "",
+        "response-type": ""
+    },
+    {
+        "description": "",
+        "methods": "DELETE",
+        "name": "SnapshotConfigReset",
+        "path": "/snapshot/config",
+        "request-type": "",
+        "response-type": ""
+    },
+    {
+        "description": "",
+        "methods": "GET",
+        "name": "GetPeer",
+        "path": "/peers/{peerid}",
+        "request-type": "",
+        "response-type": "api.PeerGetResp"
+    },
+    {
+        "description": "",
+        "methods": "GET",
+        "name": "GetPeers",
+        "path": "/peers",
+        "request-type": "",
+        "response-type": "api.PeerListResp"
+    },
+    {
+        "description": "",
+        "methods": "DELETE",
+        "name": "DeletePeer",
+        "path": "/peers/{peerid}",
+        "request-type": "",
+        "response-type": ""
+    },
+    {
+        "description": "",
+        "methods": "POST",
+        "name": "AddPeer",
+        "path": "/peers",
+        "request-type": "api.PeerAddReq",
+        "response-type": "api.PeerAddResp"
+    },
+    {
+        "description": "",
+        "methods": "POST",
+        "name": "EditPeer",
+        "path": "/peers/{peerid}",
+        "request-type": "api.PeerEditReq",
+        "response-type": "api.PeerEditResp"
+    },
+    {
+        "description": "",
+        "methods": "POST",
+        "name": "SetGlobalOptions",
+        "path": "/cluster/options",
+        "request-type": "",
+        "response-type": ""
+    },
+    {
+        "description": "",
+        "methods": "GET",
+        "name": "GetGlobalOptions",
+        "path": "/cluster/options/",
+        "request-type": "",
+        "response-type": ""
+    },
+    {
+        "description": "",
+        "methods": "POST",
+        "name": "GeoreplicationCreate",
+        "path": "/geo-replication/{mastervolid}/{remotevolid}",
+        "request-type": "georeplication.GeorepCreateReq",
+        "response-type": "georeplication.GeorepSession"
+    },
+    {
+        "description": "",
+        "methods": "POST",
+        "name": "GeoreplicationStart",
+        "path": "/geo-replication/{mastervolid}/{remotevolid}/start",
+        "request-type": "georeplication.GeorepCommandsReq",
+        "response-type": "georeplication.GeorepSession"
+    },
+    {
+        "description": "",
+        "methods": "POST",
+        "name": "GeoreplicationStop",
+        "path": "/geo-replication/{mastervolid}/{remotevolid}/stop",
+        "request-type": "georeplication.GeorepCommandsReq",
+        "response-type": "georeplication.GeorepSession"
+    },
+    {
+        "description": "",
+        "methods": "DELETE",
+        "name": "GeoreplicationDelete",
+        "path": "/geo-replication/{mastervolid}/{remotevolid}",
+        "request-type": "",
+        "response-type": ""
+    },
+    {
+        "description": "",
+        "methods": "POST",
+        "name": "GeoreplicationPause",
+        "path": "/geo-replication/{mastervolid}/{remotevolid}/pause",
+        "request-type": "georeplication.GeorepCommandsReq",
+        "response-type": "georeplication.GeorepSession"
+    },
+    {
+        "description": "",
+        "methods": "POST",
+        "name": "GeoreplicationResume",
+        "path": "/geo-replication/{mastervolid}/{remotevolid}/resume",
+        "request-type": "georeplication.GeorepCommandsReq",
+        "response-type": "georeplication.GeorepSession"
+    },
+    {
+        "description": "",
+        "methods": "GET",
+        "name": "GeoreplicationStatus",
+        "path": "/geo-replication/{mastervolid}/{remotevolid}",
+        "request-type": "",
+        "response-type": "georeplication.GeorepSession"
+    },
+    {
+        "description": "",
+        "methods": "GET",
+        "name": "GeoReplicationConfigGet",
+        "path": "/geo-replication/{mastervolid}/{remotevolid}/config",
+        "request-type": "georeplication.GeorepOption",
+        "response-type": "georeplication.GeorepOption"
+    },
+    {
+        "description": "",
+        "methods": "POST",
+        "name": "GeoReplicationConfigSet",
+        "path": "/geo-replication/{mastervolid}/{remotevolid}/config",
+        "request-type": "",
+        "response-type": ""
+    },
+    {
+        "description": "",
+        "methods": "DELETE",
+        "name": "GeoReplicationConfigReset",
+        "path": "/geo-replication/{mastervolid}/{remotevolid}/config",
+        "request-type": "",
+        "response-type": ""
+    },
+    {
+        "description": "",
+        "methods": "GET",
+        "name": "GeoreplicationStatusList",
+        "path": "/geo-replication",
+        "request-type": "",
+        "response-type": "georeplication.GeorepSession"
+    },
+    {
+        "description": "",
+        "methods": "POST",
+        "name": "GeoreplicationSshKeyGenerate",
+        "path": "/ssh-key/{volname}/generate",
+        "request-type": "",
+        "response-type": "georeplication.GeorepSSHPublicKey"
+    },
+    {
+        "description": "",
+        "methods": "POST",
+        "name": "GeoreplicationSshKeyPush",
+        "path": "/ssh-key/{volname}/push",
+        "request-type": "georeplication.GeorepSSHPublicKey",
+        "response-type": ""
+    },
+    {
+        "description": "",
+        "methods": "GET",
+        "name": "GeoreplicationSshKeyGet",
+        "path": "/ssh-key/{volname}",
+        "request-type": "",
+        "response-type": "georeplication.GeorepSSHPublicKey"
+    },
+    {
+        "description": "",
+        "methods": "POST",
+        "name": "BitrotEnable",
+        "path": "/volumes/{volname}/bitrot/enable",
+        "request-type": "",
+        "response-type": ""
+    },
+    {
+        "description": "",
+        "methods": "POST",
+        "name": "BitrotDisable",
+        "path": "/volumes/{volname}/bitrot/disable",
+        "request-type": "",
+        "response-type": ""
+    },
+    {
+        "description": "",
+        "methods": "POST",
+        "name": "ScrubOndemand",
+        "path": "/volumes/{volname}/bitrot/scrubondemand",
+        "request-type": "",
+        "response-type": ""
+    },
+    {
+        "description": "",
+        "methods": "GET",
+        "name": "ScrubStatus",
+        "path": "/volumes/{volname}/bitrot/scrubstatus",
+        "request-type": "",
+        "response-type": ""
+    },
+    {
+        "description": "",
+        "methods": "POST",
+        "name": "QuotaEnable",
+        "path": "/quota/{volname}",
+        "request-type": "",
+        "response-type": ""
+    },
+    {
+        "description": "",
+        "methods": "DELETE",
+        "name": "QuotaDisable",
+        "path": "/quota/{volname}",
+        "request-type": "",
+        "response-type": ""
+    },
+    {
+        "description": "",
+        "methods": "GET",
+        "name": "QuotaList",
+        "path": "/quota/{volname}/limit",
+        "request-type": "",
+        "response-type": ""
+    },
+    {
+        "description": "",
+        "methods": "POST",
+        "name": "QuotaLimit",
+        "path": "/quota/{volname}/limit",
+        "request-type": "",
+        "response-type": ""
+    },
+    {
+        "description": "",
+        "methods": "DELETE",
+        "name": "QuotaRemove",
+        "path": "/quota/{volname}/limit",
+        "request-type": "",
+        "response-type": ""
+    },
+    {
+        "description": "",
+        "methods": "POST",
+        "name": "WebhookAdd",
+        "path": "/events/webhook",
+        "request-type": "",
+        "response-type": ""
+    },
+    {
+        "description": "",
+        "methods": "DELETE",
+        "name": "WebhookDelete",
+        "path": "/events/webhook",
+        "request-type": "",
+        "response-type": ""
+    },
+    {
+        "description": "",
+        "methods": "GET",
+        "name": "WebhookList",
+        "path": "/events/webhook",
+        "request-type": "",
+        "response-type": ""
+    },
+    {
+        "description": "",
+        "methods": "GET",
+        "name": "EventsList",
+        "path": "/events",
+        "request-type": "",
+        "response-type": ""
+    },
+    {
+        "description": "",
+        "methods": "GET",
+        "name": "SelfHealInfo",
+        "path": "/volumes/{name}/{opts}/heal-info",
+        "request-type": "",
+        "response-type": "glustershd.BrickHealInfo"
+    },
+    {
+        "description": "",
+        "methods": "GET",
+        "name": "SelfHealInfo2",
+        "path": "/volumes/{name}/heal-info",
+        "request-type": "",
+        "response-type": "glustershd.BrickHealInfo"
+    },
+    {
+        "description": "",
+        "methods": "POST",
+        "name": "DeviceAdd",
+        "path": "/devices/{peerid}",
+        "request-type": "device.AddDeviceReq",
+        "response-type": "device.AddDeviceResp"
+    },
+    {
+        "description": "",
+        "methods": "GET",
+        "name": "DeviceList",
+        "path": "/devices/{peerid}",
+        "request-type": "",
+        "response-type": "device.ListDeviceResp"
+    },
+    {
+        "description": "",
+        "methods": "GET",
+        "name": "ListAllDevices",
+        "path": "/devices",
+        "request-type": "",
+        "response-type": "device.ListDeviceResp"
+    },
+    {
+        "description": "",
+        "methods": "POST",
+        "name": "RebalanceStart",
+        "path": "/volumes/{volname}/rebalance/start",
+        "request-type": "rebalance.StartReq",
+        "response-type": ""
+    },
+    {
+        "description": "",
+        "methods": "POST",
+        "name": "RebalanceStop",
+        "path": "/volumes/{volname}/rebalance/stop",
+        "request-type": "",
+        "response-type": ""
+    },
+    {
+        "description": "",
+        "methods": "GET",
+        "name": "RebalanceStatus",
+        "path": "/volumes/{volname}/rebalance",
+        "request-type": "",
+        "response-type": ""
+    },
+    {
+        "description": "",
+        "methods": "POST",
+        "name": "SmartVolumeCreate",
+        "path": "/smartvol",
+        "request-type": "api.VolCreateReq",
+        "response-type": "api.VolumeCreateResp"
+    },
+    {
+        "description": "",
+        "methods": "GET",
+        "name": "Statedump",
+        "path": "/statedump",
+        "request-type": "",
+        "response-type": ""
+    },
+    {
+        "description": "",
+        "methods": "GET",
+        "name": "List Endpoints",
+        "path": "/endpoints",
+        "request-type": "",
+        "response-type": "api.ListEndpointsResp"
+    },
+    {
+        "description": "",
+        "methods": "GET",
+        "name": "Glusterd2 service status",
+        "path": "/ping",
+        "request-type": "",
+        "response-type": ""
+    }
+]
