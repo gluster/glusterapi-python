@@ -27,6 +27,27 @@ def extract_volume_ID(remotehost, remoteport, remotevol):
         raise GlusterApiError("Remote volume doesn't exist")
     return remotevolid
 
+def get_vol_IDs(self, mastervol, remotevol, remotehost):
+    georep_status_url = "/v1/geo-replication"
+    try:
+        allsessions = self._get(self, georep_status_url)
+    except ValueError:
+        raise GlusterApiError("No active geo-replication sessions")
+    for s in allsessions:
+        if s.MasterID == mastervol:
+            mastervolid = s.MasterID
+    if mastervolid is None:
+        raise GlusterApiInvalidInputs("Master volume doesn't exist")
+
+    for s in allsessions:
+        if s.RemoteVol == remotevol:
+            for host in s.RemoteHosts:
+                if host.Hostname == remotehost:
+                    remotevolid = s.RemoteID
+    if remotevolid is None:
+        raise GlusterApiInvalidInputs("Remote volume doesn't exist")
+    return mastervolid, remotevolid
+
 
 class GeorepApis(BaseAPI):
     def georep_create(self, mastervol, remotehost, remoteport, remotevol,
