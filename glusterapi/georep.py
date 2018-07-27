@@ -8,9 +8,7 @@ from glusterapi.exceptions import GlusterApiError
 from glusterapi.exceptions import GlusterApiInvalidInputs
 
 
-def extract_volume_ID(remotehost, remoteport, remotevol, remote_endpoint,
-                      remote_endpoint_user, remote_endpoint_secret, remote_endpoint_verify):
-    #TODO: Add authentication checks
+def extract_volume_ID(remotehost, remoteport, remotevol, headers):
     if remoteport not in range(1, 65535):
         raise GlusterApiInvalidInputs("Incorrect port")
     try:
@@ -20,7 +18,7 @@ def extract_volume_ID(remotehost, remoteport, remotevol, remote_endpoint,
     validate_volume_name(remotevol)
     client_url = "http://"+ remotehost + ":" + remoteport + "/v1/volumes"
     try:
-        resp = requests.get(client_url)
+        resp = requests.get(client_url, headers=headers)
     except ValueError:
         raise GlusterApiInvalidInputs("Invalid URL: %s" % client_url)
     if resp.status_code == 200:
@@ -75,9 +73,10 @@ class GeorepApis(BaseAPI):
             mastervolid = resp.get(mastervol)
         except ValueError:
             raise GlusterApiError("Master volume %s doesn't exist" % mastervol)
-        remotevolid = extract_volume_ID(remotevol, remote_endpoint,
-                                        remote_endpoint_user, remote_endpoint_secret,
-                                        remote_endpoint_verify)
+        self.__init__(remote_endpoint, remote_endpoint_user,
+                      remote_endpoint_secret, remote_endpoint_verify)
+        headers = self._set_token_in_header('GET', volumes_url)
+        remotevolid = extract_volume_ID(remotehost, remoteport, remotevol, headers)
         url = "/v1/geo-replication/%s/%s" % (mastervolid, remotevolid)
         req = {
             "mastervolume": mastervol,
