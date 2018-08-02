@@ -13,6 +13,7 @@ from glusterapi import Client
 class GlusterdConfig(object):
     """GlusterdConfig Class to test the bindings."""
 
+    #TODO: Add setupclass() and teardownclass() functions
     hostname = ''
     node_list = []
     node_peerid_map = {}
@@ -79,3 +80,58 @@ def test_peer_remove(gd2client):
     for node in node_list:
         _, resp = gd2client.peer_remove(peerid=Peer.get_peer_id(node))
         assert not bool(resp)
+
+
+def test_georep_create_delete(gd2client):
+    """Test for georep session operations."""
+    m_bricks = []
+    _, resp = gd2client.peer_status()
+    peer_id = resp[0]["id"]
+    for i in range(3):
+        temp_path = "/tmp/brick" + str(i)
+        brick_path = peer_id + ":" + temp_path
+        m_bricks.append(brick_path)
+    mastervol = gd2client.volume_create(m_bricks, volume_name="testmastervol",
+                                        transport="tcp", replica=0, disperse=0,
+                                        disperse_data=0, disperse_redundancy=0,
+                                        arbiter=0, force=False, options=None,
+                                        metadata=None)
+    gd2client.volume_start("testmastervol", False)
+    r_bricks = []
+    for i in range(3, 5):
+        temp_path = "/tmp/brick" + str(i)
+        brick_path = peer_id + ":" + temp_path
+        r_bricks.append(brick_path)
+    remotevol = gd2client.volume_create(r_bricks, volume_name="testremotevol",
+                                        transport="tcp", replica=0, disperse=0,
+                                        disperse_data=0, disperse_redundancy=0,
+                                        arbiter=0, force=False, options=None,
+                                        metadata=None)
+    gd2client.volume_start("testremotevol", False)
+    remotehostinfo = urlparse(gd2client.endpoint).netloc.split(':')
+    remotehost = remotehostinfo[0]
+    remoteport = remotehostinfo[1]
+    _, resp = gd2client.georep_create(mastervol, remotehost, remoteport, remotevol,
+                                      remoteuser="root", remote_endpoint="",
+                                      remote_endpoint_user=gd2client.user,
+                                      remote_endpoint_secret=gd2client.secret,
+                                      remote_endpoint_verify=gd2client.verify)
+
+    # start geo-rep session
+    _, _ = gd2client.georep_start(mastervol, remotehost, remotevol,
+                                  force=False)
+
+    # stop geo-rep session
+    _, _ = gd2client.georep_stop(mastervol, remotehost, remotevol,
+                                 force=False)
+
+    # get status of geo-rep session
+    _, _ = gd2client.georep_status(mastervol, remotehost, remotevol)
+
+    # delete geo-rep session
+    _, _ = gd2client.georep_delete(mastervol, remotehost, remotevol,
+                                   force=False)
+
+    # delete the volumes
+    _, _ = gd2client.volume_delete("testmastervol")
+    _, _ = gd2client.volume_delete("testremotevol")
