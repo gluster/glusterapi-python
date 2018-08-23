@@ -8,43 +8,51 @@ from glusterapi.exceptions import GlusterApiError
 from glusterapi.exceptions import GlusterApiInvalidInputs
 
 
-def extract_volume_ID(remotehost, remoteport, remotevol, headers):
-    if remoteport not in range(1, 65535):
+def extract_volume_ID(remotehost, remoteport, remote_endpoint, remotevol, headers):
+    if int(remoteport) not in range(1, 65535):
         raise GlusterApiInvalidInputs("Incorrect port")
     try:
         socket.inet_aton(remotehost)
     except socket.error:
         raise GlusterApiInvalidInputs("Invalid Remote host IP Address")
     validate_volume_name(remotevol)
-    client_url = "http://"+ remotehost + ":" + remoteport + "/v1/volumes"
+    if not remote_endpoint:
+        client_url = "http://"+ remotehost + ":" + remoteport + "/v1/volumes"
+    else:
+        client_url = remote_endpoint + "/v1/volumes"
     try:
         resp = requests.get(client_url, headers=headers)
     except ValueError:
         raise GlusterApiInvalidInputs("Invalid URL: %s" % client_url)
     if resp.status_code == 200:
-        remotevolid = resp.json().get(remotevol)
+        try:
+            remotevolid = resp.json()[1].get('id')
+        except ValueError:
+            raise GlusterApiError("Remote volume doesn't exist")
     else:
-        raise GlusterApiError("Remote volume doesn't exist")
+        raise GlusterApiError("Invalid Url Response")
     return remotevolid
 
 def get_vol_IDs(self, mastervol, remotevol, remotehost):
     georep_status_url = "/v1/geo-replication"
     try:
-        allsessions = requests.get(self, georep_status_url)
+        allsessions = self._get(georep_status_url)
     except ValueError:
         raise GlusterApiError("No active geo-replication sessions")
-    for s in allsessions:
-        if s.MasterID == mastervol:
-            mastervolid = s.MasterID
-    if mastervolid is None:
+    mastervolid = ""
+    remotevolid = ""
+    for s in allsessions.json():
+        if s.get("master_volume") == mastervol:
+            mastervolid = s.get("master_volume_id")
+    if mastervolid == "":
         raise GlusterApiInvalidInputs("Master volume doesn't exist")
 
-    for s in allsessions:
-        if s.RemoteVol == remotevol:
-            for host in s.RemoteHosts:
-                if host.Hostname == remotehost:
-                    remotevolid = s.RemoteID
-    if remotevolid is None:
+    for s in allsessions.json():
+        if s.get("remote_volume") == remotevol:
+            for host in s.get("remote_hosts"):
+                if host.get("host") == remotehost:
+                    remotevolid = s.get("remote_volume_id")
+    if remotevolid == "":
         raise GlusterApiInvalidInputs("Remote volume doesn't exist")
     return mastervolid, remotevolid
 
@@ -67,24 +75,43 @@ class GeorepApis(BaseAPI):
         :raises: GlusterAPIError or GlusterApiInvalidInputs on failure
         """
         validate_volume_name(mastervol)
-        volumes_url = "/v1/volumes/"
-        resp = self._get(self, volumes_url)
+        volumes_url = "/v1/volumes/"+str(mastervol)
+        resp = self._get(volumes_url)
+        peer_id = ""
+        peers_url = "/v1/peers"
+        peers_resp = self._get(peers_url)
+        for _, peer in enumerate(peers_resp.json()):
+            if str(peer.get("peer-addresses")[0]).split(":")[0] == remotehost:
+                peer_id = peer.get("id")
+        remotehostreq = []
+        peer_req = {
+            "peerid": peer_id,
+            "host": remotehost
+        }
+        remotehostreq.append(peer_req)
         try:
-            mastervolid = resp.get(mastervol)
+            mastervolid = resp.json().get('id')
         except ValueError:
             raise GlusterApiError("Master volume %s doesn't exist" % mastervol)
+        # Save old credentials for reinitialization of client
+        old_endpoint = self.base_url
+        old_user = self.user
+        old_secret = self.secret
+        old_verify = self.verify
+        # Initialize session for remote cluster
         self.__init__(remote_endpoint, remote_endpoint_user,
                       remote_endpoint_secret, remote_endpoint_verify)
-        headers = self._set_token_in_header('GET', volumes_url)
-        remotevolid = extract_volume_ID(remotehost, remoteport, remotevol, headers)
+        headers = self.set_token_in_header('GET', volumes_url)
+        remotevolid = extract_volume_ID(remotehost, remoteport, remote_endpoint, remotevol, headers)
         url = "/v1/geo-replication/%s/%s" % (mastervolid, remotevolid)
         req = {
-            "mastervolume": mastervol,
-            "remotehost": remotehost,
-            "remoteport": remoteport,
-            "remotevolume": remotevol,
+            "mastervol": mastervol,
+            "remotehosts": remotehostreq,
+            "remotevol": remotevol,
             "remoteuser": remoteuser
         }
+        # Reinitialize the client
+        self.__init__(old_endpoint, old_user, old_secret, old_verify)
         return self._handle_request(self._post, httplib.CREATED,
                                     url, json.dumps(req))
 
@@ -99,7 +126,7 @@ class GeorepApis(BaseAPI):
         :raises: GlusterAPIError or GlusterApiInvalidInputs on failure
         """
         validate_volume_name(mastervol)
-        mastervolid, remotevolid = get_vol_IDs(mastervol, remotevol, remotehost)
+        mastervolid, remotevolid = get_vol_IDs(self, mastervol=mastervol, remotevol=remotevol, remotehost=remotehost)
         url = "/v1/geo-replication/%s/%s/start" % (mastervolid, remotevolid)
         req = {
             "force": force
@@ -118,7 +145,7 @@ class GeorepApis(BaseAPI):
         :raises: GlusterAPIError or GlusterApiInvalidInputs on failure
         """
         validate_volume_name(mastervol)
-        mastervolid, remotevolid = get_vol_IDs(mastervol, remotevol, remotehost)
+        mastervolid, remotevolid = get_vol_IDs(mastervol=mastervol, remotevol=remotevol, remotehost=remotehost)
         url = "/v1/geo-replication/%s/%s/stop" % (mastervolid, remotevolid)
         req = {
             "force": force
@@ -137,7 +164,7 @@ class GeorepApis(BaseAPI):
         :raises: GlusterAPIError or GlusterApiInvalidInputs on failure
         """
         validate_volume_name(mastervol)
-        mastervolid, remotevolid = get_vol_IDs(mastervol, remotevol, remotehost)
+        mastervolid, remotevolid = get_vol_IDs(mastervol=mastervol, remotevol=remotevol, remotehost=remotehost)
         url = "/v1/geo-replication/%s/%s" % (mastervolid, remotevolid)
         req = {
             "force": force
@@ -213,7 +240,7 @@ class GeorepApis(BaseAPI):
         """
         if mastervol and remotevol:
             validate_volume_name(mastervol)
-            mastervolid, remotevolid = get_vol_IDs(mastervol, remotevol, remotehost)
+            mastervolid, remotevolid = get_vol_IDs(self, mastervol=mastervol, remotevol=remotevol, remotehost=remotehost)
             url = "/v1/geo-replication/%s/%s" % (mastervolid, remotevolid)
         else:
             url = "/v1/geo-replication"
