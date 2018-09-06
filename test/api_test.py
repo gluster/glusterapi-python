@@ -50,6 +50,7 @@ def gd2client():
     user = config["glusterd2"]["user"]
     secret = config["glusterd2"]["secret"]
     verify = config["glusterd2"]["verify"]
+
     # Check for controller node and skip it for probing.
     for node in config["peer"]:
         if node["hostname"].split(':')[0] == urlparse(endpoint).netloc.split(':')[0]:
@@ -88,34 +89,42 @@ def test_georep_create_delete(gd2client):
     _, resp = gd2client.peer_status()
     peer_id = resp[0]["id"]
     for i in range(3):
-        temp_path = "/tmp/brick" + str(i)
+        temp_path = "/usr/local/var/lib/glusterd2/bricks/brick" + str(i)
         brick_path = peer_id + ":" + temp_path
         m_bricks.append(brick_path)
-    mastervol = gd2client.volume_create(m_bricks, volume_name="testmastervol",
+    mastervol = "testmastervol"
+    gd2client.volume_create(m_bricks, volume_name=mastervol,
                                         transport="tcp", replica=0, disperse=0,
                                         disperse_data=0, disperse_redundancy=0,
-                                        arbiter=0, force=False, options=None,
+                                        arbiter=0, force=True, options=None,
                                         metadata=None)
     gd2client.volume_start("testmastervol", False)
     r_bricks = []
     for i in range(3, 5):
-        temp_path = "/tmp/brick" + str(i)
+        temp_path = "/usr/local/var/lib/glusterd2/bricks/brick" + str(i)
         brick_path = peer_id + ":" + temp_path
         r_bricks.append(brick_path)
-    remotevol = gd2client.volume_create(r_bricks, volume_name="testremotevol",
+    config = json.loads(open('config.json').read())
+    georep_endpoint = config["glusterd2"]["endpoint"]
+    georep_user = config["glusterd2"]["user"]
+    georep_secret = config["glusterd2"]["secret"]
+    georep_verify = config["glusterd2"]["verify"]
+    remotevol="testremotevol"
+    client=Client(endpoint=georep_endpoint, user=georep_user, secret=georep_secret, verify=georep_verify)
+    client.volume_create(r_bricks, volume_name=remotevol,
                                         transport="tcp", replica=0, disperse=0,
                                         disperse_data=0, disperse_redundancy=0,
-                                        arbiter=0, force=False, options=None,
+                                        arbiter=0, force=True, options=None,
                                         metadata=None)
-    gd2client.volume_start("testremotevol", False)
-    remotehostinfo = urlparse(gd2client.endpoint).netloc.split(':')
+    client.volume_start("testremotevol", False)
+    remotehostinfo = urlparse(georep_endpoint).netloc.split(':')
     remotehost = remotehostinfo[0]
     remoteport = remotehostinfo[1]
     _, resp = gd2client.georep_create(mastervol, remotehost, remoteport, remotevol,
                                       remoteuser="root", remote_endpoint="",
-                                      remote_endpoint_user=gd2client.user,
-                                      remote_endpoint_secret=gd2client.secret,
-                                      remote_endpoint_verify=gd2client.verify)
+                                      remote_endpoint_user=client.user,
+                                      remote_endpoint_secret=client.secret,
+                                      remote_endpoint_verify=client.verify)
 
     # start geo-rep session
     _, _ = gd2client.georep_start(mastervol, remotehost, remotevol,
