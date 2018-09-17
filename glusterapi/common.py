@@ -37,7 +37,7 @@ class BaseAPI(object):
         self.secret = secret
         self.verify = verify
 
-    def _set_token_in_header(self, method, uri, headers=None):
+    def set_token_in_header(self, method, uri, headers=None):
 
         if self.user is None or self.secret is None:
             return None
@@ -63,22 +63,22 @@ class BaseAPI(object):
         return headers
 
     def _get(self, url, param=None):
-        headers = self._set_token_in_header('GET', url)
+        headers = self.set_token_in_header('GET', url)
         return requests.get(self.base_url + url, headers=headers,
                             verify=self.verify, params=param)
 
     def _post(self, url, data):
-        headers = self._set_token_in_header('POST', url)
+        headers = self.set_token_in_header('POST', url)
         return requests.post(self.base_url + url, data=data, headers=headers,
                              verify=self.verify)
 
     def _delete(self, url, data):
-        headers = self._set_token_in_header('DELETE', url)
+        headers = self.set_token_in_header('DELETE', url)
         return requests.delete(self.base_url + url, data=data, headers=headers,
                                verify=self.verify)
 
     def _put(self, url, data):
-        headers = self._set_token_in_header('PUT', url)
+        headers = self.set_token_in_header('PUT', url)
         return requests.put(self.base_url + url, data=data, headers=headers,
                             verify=self.verify)
 
@@ -93,3 +93,4 @@ class BaseAPI(object):
             return resp.status_code, {}
 
         return resp.status_code, resp.json()
+
