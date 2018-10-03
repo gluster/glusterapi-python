@@ -1,0 +1,23 @@
+---
+peer:
+  properties:
+    id:
+      type: string
+    name:
+      type: string
+    peer-addresses:
+      type: array
+      items:
+       type: string
+    client-addresses:
+      type: array
+      items:
+       type: string
+    online:
+      type: boolean
+    pid:
+      type: integer
+    metadata:
+      type: object 
+  example:
+      $ref: './resp_peer_example.yml#/peer'

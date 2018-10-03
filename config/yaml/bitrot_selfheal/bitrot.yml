@@ -1,0 +1,31 @@
+---
+parameters:
+  in: path
+  name: volname
+  schema:
+    type: string
+  required: true
+
+bitrot_enable:
+  responses:
+    200:
+      content:
+        application/json:
+
+bitrot_disable:
+  responses:
+    201:
+      content:
+        application/json:
+
+bitrot_scrub:
+  responses:
+    202:
+      content:
+        application/json:
+
+bitrot_scrub_status:
+  responses:
+    203:
+      content:
+        application/json:        

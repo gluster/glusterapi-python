@@ -1,0 +1,67 @@
+---
+volume:
+  type: object
+  properties:
+    id:
+      type: string
+    name:
+      type: string
+    type:
+      type: string
+    transport:
+      type: string
+    distribute-count:
+      type: integer
+    replica-count:
+      type: integer
+    arbiter-count:
+      type: integer
+    options:
+      type: object
+    state:
+      type: string
+    subvols:
+      type: array
+      items:
+        $ref: './resp_volume.yml#/subvol'
+    metadata:
+      type: object
+    snap-list:
+      type: array
+      items:
+        type: string
+subvol:
+  type: object
+  properties:
+    name:
+      type: string
+    type:
+      type: string
+    replica-count:
+      type: integer
+    arbiter-count:
+      type: integer
+    bricks:
+      type: array
+      items:
+        $ref: './resp_volume.yml#/brick'
+
+
+brick:
+  type: object
+  properties:
+    id:
+      type: string
+    path:
+      type: string
+    volume-id:
+      type: string
+    volume-name:
+      type: string
+    peer-id:
+      type: string
+    host:
+      type: string
+    type:
+      type: string
+

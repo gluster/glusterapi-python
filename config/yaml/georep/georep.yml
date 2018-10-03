@@ -1,0 +1,351 @@
+---
+georep_create:
+    parameters1:
+        in: path
+        name: mastervolid
+        schema:
+          type: string
+        required: true
+    parameters2:
+        in: path
+        name: remotevolid
+        schema:
+          type: string
+        required: true
+
+    requestBody1:    
+      content:
+        application/json:
+          schema:
+            $ref: './req_georep.yml#/create'
+
+    responses:
+      200:
+        description: Session created response
+        content:
+          application/json:
+            schema:
+              $ref: './resp_georep.yml#/session'
+
+
+georep_start:
+    parameters1:
+        in: path
+        name: mastervolid
+        schema:
+          type: string
+        required: true
+    parameters2:  
+        in: path
+        name: remotevolid
+        schema:
+          type: string
+        required: true
+
+    requestBody2:
+      content:
+        application/json:
+          schema:
+            $ref: './req_georep.yml#/start'
+
+    responses:
+      201:
+        description: Session started response
+        content:
+          application/json:
+            schema:
+              $ref: './resp_georep.yml#/session'
+
+    
+georep_stop:
+    parameters1:
+        in: path
+        name: mastervolid
+        schema:
+          type: string
+        required: true
+    parameters2:  
+        in: path
+        name: remotevolid
+        schema:
+          type: string
+        required: true
+
+    requestBody3:
+      content:
+        application/json:
+          schema:
+            $ref: './req_georep.yml#/stop'
+
+    responses:
+      202:
+        description: Session stopped response
+        content:
+          application/json:
+            schema:
+              $ref: './resp_georep.yml#/session'
+
+
+georep_delete:
+    parameters1:
+        in: path
+        name: mastervolid
+        schema:
+          type: string
+        required: true
+    parameters2:  
+        in: path
+        name: remotevolid
+        schema:
+          type: string
+        required: true
+
+    responses:
+      204:
+       content:
+         application/json:
+
+georep_pause:
+    parameters1:
+        in: path
+        name: mastervolid
+        schema:
+          type: string
+        required: true
+    parameters2:  
+        in: path
+        name: remotevolid
+        schema:
+          type: string
+        required: true
+
+    requestBody4:
+      content:
+        application/json:
+          schema:
+            $ref: './req_georep.yml#/pause'
+
+    responses:
+      203:
+        description: Session paused response
+        content:
+          application/json:
+            schema:
+              $ref: './resp_georep.yml#/session'
+
+
+georep_resume:
+    parameters1:
+        in: path
+        name: mastervolid
+        schema:
+          type: string
+        required: true
+    parameters2:  
+        in: path
+        name: remotevolid
+        schema:
+          type: string
+        required: true
+
+    requestBody5:
+      content:
+        application/json:
+          schema:
+            $ref: './req_georep.yml#/resume'
+
+    responses:  
+      205:
+        description: Session resumed response
+        content:
+          application/json:
+            schema:
+              $ref: './resp_georep.yml#/session'
+
+
+georep_status:
+    parameters1:
+        in: path
+        name: mastervolid
+        schema:
+          type: string
+        required: true
+    parameters2:  
+        in: path
+        name: remotevolid
+        schema:
+          type: string
+        required: true
+
+    responses:
+      206:
+        description: Session status
+        content:
+          application/json:
+            schema:
+              $ref: './resp_georep.yml#/session'
+
+
+georep_config_get:
+    parameters1:
+        in: path
+        name: mastervolid
+        schema:
+          type: string
+        required: true
+    parameters2: 
+        in: path
+        name: remotevolid
+        schema:
+          type: string
+        required: true
+
+    responses:
+      207:
+        description: Get configuration
+        content:
+          application/json:
+            schema:
+              $ref: './resp_georep.yml#/option_resp'
+
+
+georep_config_set:
+    parameters1:
+        in: path
+        name: mastervolid
+        schema:
+          type: string
+        required: true
+    parameters2:  
+        in: path
+        name: remotevolid
+        schema:
+          type: string
+        required: true
+
+    requestBody6:
+      content:
+        application/json:
+          schema:
+            $ref: './req_georep.yml#/option'
+
+    responses:
+      208:
+        description: Set configuration
+        content:
+          application/json:
+            schema:
+              $ref: './resp_georep.yml#/option_resp'
+
+
+georep_config_reset:
+    parameters1:
+        in: path
+        name: mastervolid
+        schema:
+          type: string
+        required: true
+    parameters2:  
+        in: path
+        name: remotevolid
+        schema:
+          type: string
+        required: true
+    
+    responses:
+      209:
+        description: Delete configuration
+        content:
+          application/json:
+
+
+georep_status_list:
+    responses:
+      210:
+        description: Delete configuration
+        content:
+          application/json:
+            schema:
+              $ref: './resp_georep.yml#/session'
+
+
+georep_sshkey_generate:
+    parameters:
+        in: path
+        name: volname
+        schema:
+          type: string
+        required: true
+    
+    responses:
+      211:
+        description: Created node's public key
+        content:
+          application/json:
+            schema:
+              $ref: './resp_georep.yml#/ssh_public_key'
+
+
+georep_sshkey_push:
+    parameters:
+        in: path
+        name: volname
+        schema:
+          type: string
+        required: true
+
+    requestBody7:
+      content:
+        application/json:
+          schema:
+            $ref: './req_georep.yml#/ssh_public_key'
+    
+    responses:
+      213:
+        content:
+          application/json:
+
+georep_sshkey_get:
+    parameters:
+        in: path
+        name: volname
+        schema:
+          type: string
+        required: true
+
+    responses:
+      212:
+        description: Get node's public key
+        content:
+          application/json:
+            schema:
+              $ref: './resp_georep.yml#/ssh_public_key'
+
+        
+        
+    
+
+    
+    
+    
+
+
+    
+      
+        
+              
+
+    
+    
+
+
+
+            
+
+            
+      
+
+
+              
+                      
+                        

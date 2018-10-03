@@ -1,0 +1,101 @@
+---
+openapi: 3.0.0
+# Added by API Auto Mocking Plugin
+servers:
+# Added by API Auto Mocking Plugin
+  - description: SwaggerHub API Auto Mocking
+    url: https://virtserver.swaggerhub.com/Red-Hat93/GD2-Py/1.0.0
+  - description: SwaggerHub API Auto Mocking
+    url: "http://localhost:24007"
+info:
+  description: Gluster Management APIs
+  version: "1.0.0"
+  title: Gluster Management API
+  contact:
+    email: you@your-company.com
+  license:
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+tags:
+  - name: admins
+    description: Secured Admin-only calls
+  - name: developers
+    description: Operations available to regular developers
+components:
+  securitySchemes:
+    bearerAuth:           
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+security:
+  - bearerAuth: []
+paths:
+  # Peer Management APIs
+  /peers:
+    get:
+     operationId: GetPeers
+     responses:   
+      200:
+       $ref: './peers.yml#/peersinfo/responses/200'
+    post:
+     operationId: AddPeer
+     requestBody:
+        $ref: './peers.yml#/peeradd/r2Body'
+     responses:
+       201:
+        $ref: './peers.yml#/peeradd/responses/201'
+  /peers/{peerid}:
+    get:
+     operationId: GetPeers
+     parameters:
+      - $ref: './peers.yml#/peerinfo/parameters'
+     responses:
+       200:
+          $ref: './peers.yml#/peerinfo/responses/200'
+    post:
+      operationId: EditPeer
+      parameters:
+        - $ref: './peers.yml#/peeredit/parameters'
+      requestBody:
+          $ref: './peers.yml#/peeredit/rBody'
+      responses:
+         200:
+          $ref: './peers.yml#/peeredit/responses/200'
+    delete:
+      operationId: DeletePeer
+      parameters:
+         - $ref: './peers.yml#/peerdelete/parameters'
+      responses:
+          204:
+           $ref: './peers.yml#/peerdelete/responses/204'
+  # Volume Management APIs
+  /volumes:
+    get:
+      operationId: VolumeInfo
+      responses:
+       200:
+         $ref: './volumes.yml#/volinfo/responses/200'
+    post:
+      operationId: VolumeCreate
+      requestBody:
+         $ref: './volumes.yml#/volcreate/requestBody'
+      responses:
+         201:
+           $ref: './volumes.yml#/volcreate/responses/201'
+  /volumes/{volname}/start:
+    post:
+      operationId: VolumeStart
+      parameters:
+        - $ref: './volumes.yml#/volstart/parameters'
+      responses:
+        200:
+          $ref: './volumes.yml#/volstart/responses/200'
+      
+  /volumes/{volname}/stop:
+    post:
+      operationId: VolumeStop
+      parameters:
+        - $ref: './volumes.yml#/volstop/parameters'
+      responses:
+         200:
+           $ref: './volumes.yml#/volstop/responses/200'

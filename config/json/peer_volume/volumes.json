@@ -1,0 +1,114 @@
+{
+	"volinfo": {
+		"summary": "Get Volumes information",
+		"responses": {
+			"200": {
+				"description": "List of Gluster Volumes",
+				"content": {
+					"application/json": {
+						"schema": {
+							"type": "array",
+							"items": {
+								"$ref": "./resp_volume.json#/volume"
+							},
+							"example": {
+								"$ref": "./resp_volume_example.json#/started"
+							}
+						}
+					}
+				}
+			}
+		}
+	},
+	"volcreate": {
+		"requestBody": {
+			"description": "Volume Create",
+			"required": true,
+			"content": {
+				"application/json": {
+					"schema": {
+						"oneOf": [
+							{
+								"$ref": "./req_volume.json#/auto"
+							},
+							{
+								"$ref": "./req_volume.json#/manual"
+							}
+						]
+					}
+				}
+			}
+		},
+		"responses": {
+			"201": {
+				"description": "Volume info",
+				"content": {
+					"application/json": {
+						"schema": {
+							"$ref": "./resp_volume.json#/volume"
+						},
+						"example": {
+							"$ref": "./resp_volume_example.json#/created"
+						}
+					}
+				}
+			}
+		}
+	},
+	"volstart": {
+		"summary": "Start Volume",
+		"parameters": {
+			"in": "path",
+			"name": "volname",
+			"schema": {
+				"type": "string"
+			},
+			"required": true,
+			"description": "Volume Name",
+			"example": "gv1"
+		},
+		"responses": {
+			"200": {
+				"description": "Volume info",
+				"content": {
+					"application/json": {
+						"schema": {
+							"$ref": "./resp_volume.json#/volume"
+						},
+						"example": {
+							"$ref": "./resp_volume_example.json#/started"
+						}
+					}
+				}
+			}
+		}
+	},
+	"volstop": {
+		"summary": "Stop Volume",
+		"parameters": {
+			"in": "path",
+			"name": "volname",
+			"schema": {
+				"type": "string"
+			},
+			"required": true,
+			"description": "Volume Name",
+			"example": "gv1"
+		},
+		"responses": {
+			"200": {
+				"description": "Volume info",
+				"content": {
+					"application/json": {
+						"schema": {
+							"$ref": "./resp_volume.json#/volume"
+						},
+						"example": {
+							"$ref": "./resp_volume_example.json#/stopped"
+						}
+					}
+				}
+			}
+		}
+	}
+}

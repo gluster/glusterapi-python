@@ -1,0 +1,30 @@
+---
+snapshot_info:
+  parameters:
+        in: path
+        name: snapname
+        schema:
+          type: string
+        required: true
+
+  SnapGetResp:
+    206:
+      description: Snapshot info response
+      content:
+        application/json:
+          schema:
+            $ref: './resp_snapshot.yml#/create_resp'
+
+snapshot_delete:
+  parameters:
+      in: path
+      name: snapname
+      schema:
+        type: string
+      required: true
+
+  responses:
+    208:
+      content:
+        application/json:
+

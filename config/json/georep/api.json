@@ -1,0 +1,299 @@
+{
+	"openapi": "3.0.0",
+	"servers": [
+		{
+			"description": "SwaggerHub API Auto Mocking",
+			"url": "https://virtserver.swaggerhub.com/Red-Hat93/GD2-Py/1.0.0"
+		},
+		{
+			"description": "SwaggerHub API Auto Mocking",
+			"url": "http://localhost:24007"
+		}
+	],
+	"info": {
+		"description": "Gluster Management APIs",
+		"version": "1.0.0",
+		"title": "Gluster Management API",
+		"contact": {
+			"email": "you@your-company.com"
+		},
+		"license": {
+			"name": "Apache 2.0",
+			"url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+		}
+	},
+	"tags": [
+		{
+			"name": "admins",
+			"description": "Secured Admin-only calls"
+		},
+		{
+			"name": "developers",
+			"description": "Operations available to regular developers"
+		}
+	],
+	"components": {
+                "securitySchemes": {
+                        "bearerAuth": {
+                                "type": "http",
+                                "scheme": "bearer",
+                                "bearerFormat": "JWT"
+                        }
+                }
+        },
+        "security": [
+                {
+                        "bearerAuth": []
+                }
+        ],
+	"paths": {
+		"/geo-replication/{mastervolid}/{remotevolid}": {
+			"post": {
+				"operationId": "GeoReplicationCreate",
+				"parameters": [
+					{
+						"$ref": "./georep.json#/georep_create/parameters1"
+					},
+					{
+						"$ref": "./georep.json#/georep_create/parameters2"
+					}
+				],
+				"requestBody": {
+					"$ref": "./georep.json#/georep_create/requestBody1"
+				},
+				"responses": {
+					"200": {
+						"$ref": "./georep.json#/georep_create/responses/200"
+					}
+				}
+			},
+			"delete": {
+				"operationId": "GeoReplicationDelete",
+				"parameters": [
+					{
+						"$ref": "./georep.json#/georep_delete/parameters1"
+					},
+					{
+						"$ref": "./georep.json#/georep_delete/parameters2"
+					}
+				],
+				"responses": {
+					"204": {
+						"$ref": "./georep.json#/georep_delete/responses/204"
+					}
+				}
+			},
+			"get": {
+				"operationId": "GeoReplicationStatus",
+				"parameters": [
+					{
+						"$ref": "./georep.json#/georep_status/parameters1"
+					},
+					{
+						"$ref": "./georep.json#/georep_status/parameters2"
+					}
+				],
+				"responses": {
+					"206": {
+						"$ref": "./georep.json#/georep_status/responses/206"
+					}
+				}
+			}
+		},
+		"/geo-replication/{mastervolid}/{remotevolid}/start": {
+			"post": {
+				"operationId": "GeoReplicationStart",
+				"parameters": [
+					{
+						"$ref": "./georep.json#/georep_start/parameters1"
+					},
+					{
+						"$ref": "./georep.json#/georep_start/parameters2"
+					}
+				],
+				"requestBody": {
+					"$ref": "./georep.json#/georep_start/requestBody2"
+				},
+				"responses": {
+					"201": {
+						"$ref": "./georep.json#/georep_start/responses/201"
+					}
+				}
+			}
+		},
+		"/geo-replication/{mastervolid}/{remotevolid}/stop": {
+			"post": {
+				"operationId": "GeoReplicationStop",
+				"parameters": [
+					{
+						"$ref": "./georep.json#/georep_stop/parameters1"
+					},
+					{
+						"$ref": "./georep.json#/georep_stop/parameters2"
+					}
+				],
+				"requestBody": {
+					"$ref": "./georep.json#/georep_stop/requestBody3"
+				},
+				"responses": {
+					"202": {
+						"$ref": "./georep.json#/georep_stop/responses/202"
+					}
+				}
+			}
+		},
+		"/geo-replication/{mastervolid}/{remotevolid}/pause": {
+			"post": {
+				"operationId": "GeoReplicationPause",
+				"parameters": [
+					{
+						"$ref": "./georep.json#/georep_pause/parameters1"
+					},
+					{
+						"$ref": "./georep.json#/georep_pause/parameters2"
+					}
+				],
+				"requestBody": {
+					"$ref": "./georep.json#/georep_pause/requestBody4"
+				},
+				"responses": {
+					"203": {
+						"$ref": "./georep.json#/georep_pause/responses/203"
+					}
+				}
+			}
+		},
+		"/geo-replication/{mastervolid}/{remotevolid}/resume": {
+			"post": {
+				"operationId": "GeoReplicationResume",
+				"parameters": [
+					{
+						"$ref": "./georep.json#/georep_resume/parameters1"
+					},
+					{
+						"$ref": "./georep.json#/georep_resume/parameters2"
+					}
+				],
+				"requestBody": {
+					"$ref": "./georep.json#/georep_resume/requestBody5"
+				},
+				"responses": {
+					"205": {
+						"$ref": "./georep.json#/georep_resume/responses/205"
+					}
+				}
+			}
+		},
+		"/geo-replication/{mastervolid}/{remotevolid}/config": {
+			"get": {
+				"operationId": "GeoReplicationConfigGet",
+				"parameters": [
+					{
+						"$ref": "./georep.json#/georep_config_get/parameters1"
+					},
+					{
+						"$ref": "./georep.json#/georep_config_get/parameters2"
+					}
+				],
+				"responses": {
+					"207": {
+						"$ref": "./georep.json#/georep_config_get/responses/207"
+					}
+				}
+			},
+			"post": {
+				"operationId": "GeoReplicationConfigSet",
+				"parameters": [
+					{
+						"$ref": "./georep.json#/georep_config_set/parameters1"
+					},
+					{
+						"$ref": "./georep.json#/georep_config_set/parameters2"
+					}
+				],
+				"requestBody": {
+					"$ref": "./georep.json#/georep_config_set/requestBody6"
+				},
+				"responses": {
+					"208": {
+						"$ref": "./georep.json#/georep_config_set/responses/208"
+					}
+				}
+			},
+			"delete": {
+				"operationId": "GeoReplicationConfigReset",
+				"parameters": [
+					{
+						"$ref": "./georep.json#/georep_config_set/parameters1"
+					},
+					{
+						"$ref": "./georep.json#/georep_config_set/parameters2"
+					}
+				],
+				"responses": {
+					"209": {
+						"$ref": "./georep.json#/georep_config_reset/responses/209"
+					}
+				}
+			}
+		},
+		"/geo-replication": {
+			"get": {
+				"operationId": "GeoReplicationStatusList",
+				"responses": {
+					"210": {
+						"$ref": "./georep.json#/georep_status_list/responses/210"
+					}
+				}
+			}
+		},
+		"/ssh-key/{volname}/generate": {
+			"post": {
+				"operationId": "GeoReplicationSshKeyGenerate",
+				"parameters": [
+					{
+						"$ref": "./georep.json#/georep_sshkey_generate/parameters"
+					}
+				],
+				"responses": {
+					"211": {
+						"$ref": "./georep.json#/georep_sshkey_generate/responses/211"
+					}
+				}
+			}
+		},
+		"/ssh-key/{volname}/push": {
+			"post": {
+				"operationId": "GeoReplicationSshKeyPush",
+				"parameters": [
+					{
+						"$ref": "./georep.json#/georep_sshkey_push/parameters"
+					}
+				],
+				"requestBody": {
+					"$ref": "./georep.json#/georep_sshkey_push/requestBody7"
+				},
+				"responses": {
+					"213": {
+						"$ref": "./georep.json#/georep_sshkey_push/responses/213"
+					}
+				}
+			}
+		},
+		"/ssh-key/{volname}": {
+			"get": {
+				"operationId": "GeoReplicationSshKeyGet",
+				"parameters": [
+					{
+						"$ref": "./georep.json#/georep_sshkey_get/parameters"
+					}
+				],
+				"responses": {
+					"212": {
+						"$ref": "./georep.json#/georep_sshkey_get/responses/212"
+					}
+				}
+			}
+		}
+	}
+}

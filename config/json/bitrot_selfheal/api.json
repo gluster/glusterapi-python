@@ -1,0 +1,159 @@
+{
+	"openapi": "3.0.0",
+	"servers": [
+		{
+			"description": "SwaggerHub API Auto Mocking",
+			"url": "https://virtserver.swaggerhub.com/Red-Hat93/GD2-Py/1.0.0"
+		},
+		{
+			"description": "SwaggerHub API Auto Mocking",
+			"url": "http://localhost:24007"
+		}
+	],
+	"info": {
+		"description": "Gluster Management APIs",
+		"version": "1.0.0",
+		"title": "Gluster Management API",
+		"contact": {
+			"email": "you@your-company.com"
+		},
+		"license": {
+			"name": "Apache 2.0",
+			"url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+		}
+	},
+	"tags": [
+		{
+			"name": "admins",
+			"description": "Secured Admin-only calls"
+		},
+		{
+			"name": "developers",
+			"description": "Operations available to regular developers"
+		}
+	],
+	"components": {
+                "securitySchemes": {
+                        "bearerAuth": {
+                                "type": "http",
+                                "scheme": "bearer",
+                                "bearerFormat": "JWT"
+                        }
+                }
+        },
+        "security": [
+                {
+                        "bearerAuth": []
+                }
+        ],
+	"paths": {
+		"/volumes/{volname}/bitrot/enable": {
+			"post": {
+				"operationId": "BitrotEnable",
+				"parameters": [
+					{
+						"$ref": "./bitrot.json#/parameters"
+					}
+				],
+				"responses": {
+					"200": {
+						"$ref": "./bitrot.json#/bitrot_enable/responses/200"
+					}
+				}
+			}
+		},
+		"/volumes/{volname}/bitrot/disable": {
+			"post": {
+				"operationId": "BitrotDisable",
+				"parameters": [
+					{
+						"$ref": "./bitrot.json#/parameters"
+					}
+				],
+				"responses": {
+					"201": {
+						"$ref": "./bitrot.json#/bitrot_disable/responses/201"
+					}
+				}
+			}
+		},
+		"/volumes/{volname}/bitrot/scrubondemand": {
+			"post": {
+				"operationId": "BitrotScrubOndemand",
+				"parameters": [
+					{
+						"$ref": "./bitrot.json#/parameters"
+					}
+				],
+				"responses": {
+					"202": {
+						"$ref": "./bitrot.json#/bitrot_scrub/responses/202"
+					}
+				}
+			}
+		},
+		"/volumes/{volname}/bitrot/scrubstatus": {
+			"get": {
+				"operationId": "BitrotScrubStatus",
+				"parameters": [
+					{
+						"$ref": "./bitrot.json#/parameters"
+					}
+				],
+				"responses": {
+					"203": {
+						"$ref": "./bitrot.json#/bitrot_scrub_status/responses/203"
+					}
+				}
+			}
+		},
+		"/volumes/{volname}/{opts}/heal-info": {
+			"get": {
+				"operationId": "SelfHealInfo",
+				"parameters": [
+					{
+						"$ref": "./selfheal.json#/heal_info1/parameters1"
+					},
+					{
+						"$ref": "./selfheal.json#/heal_info1/parameters2"
+					}
+				],
+				"responses": {
+					"200": {
+						"$ref": "./selfheal.json#/heal_info1/responses/200"
+					}
+				}
+			}
+		},
+		"/volumes/{volname}/heal-info": {
+			"get": {
+				"operationId": "SelfHealInfo2",
+				"parameters": [
+					{
+						"$ref": "./selfheal.json#/heal_info2/parameters"
+					}
+				],
+				"responses": {
+					"201": {
+						"$ref": "./selfheal.json#/heal_info2/responses/201"
+					}
+				}
+			}
+		},
+		"/volumes/{volname}/heal": {
+			"post": {
+				"operationId": "SelfHeal",
+				"parameters": [
+					{
+						"$ref": "./selfheal.json#/self_heal/parameters"
+					}
+				],
+				"responses": {
+					"202": {
+						"$ref": "./selfheal.json#/self_heal/responses/202"
+					}
+				}
+			}
+		}
+	}
+}

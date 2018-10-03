@@ -1,0 +1,35 @@
+---
+brick_heal:
+  type: object
+  properties:
+    host-id:
+      type: string
+    name:
+      type: string
+    status:
+      type: string
+    total-entries:
+      type: string
+    entries-in-heal-pending:
+      type: integer
+    entries-in-split-brain:
+      type: integer
+    entries-possibly-healing:
+      type: integer
+    entries:
+      type: integer
+    file-gfid:
+      type: array
+      items:
+        $ref: './resp_selfheal.yml#/file_gfid'
+
+
+file_gfid:
+  type: object
+  properties:
+    chardata:
+      type: string
+    gfid:
+      type: string
+
+

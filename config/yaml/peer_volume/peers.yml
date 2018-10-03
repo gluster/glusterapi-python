@@ -1,0 +1,112 @@
+---
+peersinfo:
+  summary: Get Peers information
+  responses:
+      200:
+        description: List of Peers
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: './resp_peer.yml#/peer'
+              example:
+                $ref: './resp_peer_example.yml#/peers'
+peerinfo:
+  summary: Get a Peer information
+  parameters:
+      in: path
+      name: peerid
+      schema:
+       type: string
+      required: true
+      description: Peer ID
+      example: 4f196836-0d9d-475a-aae2-642bb0eac685
+  responses:
+      200:
+        content:
+          application/json:
+            schema:
+              $ref: './resp_peer.yml#/peer'
+            example:
+              $ref: './resp_peer_example.yml#/peer'
+peeredit:
+  summary: Edit Peer
+  parameters:
+      in: path
+      name: peerid
+      schema:
+       type: string
+      required: true
+      description: Peer ID
+      example: 4f196836-0d9d-475a-aae2-642bb0eac685
+  rBody:
+        summary: Edit peer
+        content:
+         application/json:
+           schema:
+             $ref: './req_peer.yml#/edit'
+           example:
+             $ref: './req_peer_example.yml#/edit'
+  responses:
+      200:
+        content:
+          application/json:
+            schema:
+              $ref: './resp_peer.yml#/peer'
+
+peeradd:
+  summary: Add Peer
+  r2Body:
+       description: Add Peer
+       content:
+         application/json:
+          schema:
+            $ref: './req_peer.yml#/add'
+          example:
+            $ref: './req_peer_example.yml#/add'
+  responses:
+      201:
+        content:
+          application/json:
+            schema:
+              $ref: './resp_peer.yml#/peer'
+            example:
+              $ref: './resp_peer_example.yml#/peer'
+
+peerdelete:
+  summary: Delete Peer
+  parameters:
+      in: path
+      name: peerid
+      schema:
+       type: string
+      required: true
+      description: Peer ID
+      example: 4f196836-0d9d-475a-aae2-642bb0eac685
+  responses:
+      204: 
+        content:
+          application/json:
+
+components:
+     requestBodies:
+          peeradd:
+               summary: Add Peer
+               content:
+                 application/json:
+                  schema:
+                    $ref: './req_peer.yml#/add'
+                  example:
+                    $ref: './req_peer_example.yml#/add'
+          peeredit:
+               summary: Edit peer
+               content:
+                 application/json:
+                   schema:
+                     $ref: './req_peer.yml#/edit'
+                   example:
+                     $ref: './req_peer_example.yml#/edit'
+             
+   
+     

@@ -1,0 +1,112 @@
+---
+session:
+  type: object
+  properties:
+    master_volume_id:    
+      type: string
+      format: uuid
+    remote_volume_id:
+      type: string
+      format: uuid
+    master_volume:
+      type: string
+    remote_user:
+      type: string
+    remote_hosts:
+      type: array
+      items:
+        $ref: './resp_georep.yml#/remotehost'
+    remote_volume:
+      type: string
+    monitor_status:
+      type: string
+    workers:
+      type: array
+      items:
+        $ref: './resp_georep.yml#/worker'
+    options:
+      type: object
+      additionalProperties:
+        type: string
+
+
+remotehost:
+  type: object
+  properties:
+    peerid:
+      type: string
+    host:
+      type: string
+
+
+worker:
+  type: object
+  properties:
+    master_peer_hostname: 
+      type: string
+    peer_id:
+      type: string
+    master_brick_path:
+      type: string
+    master_brick:
+      type: string
+    worker_status:
+      type: string
+    last_synced:
+      type: string
+    last_synced_utc:
+      type: string
+    last_synced_entry:
+      type: string
+    remote_peer_hostname:
+      type: string
+    checkpointeger_time:
+      type: string
+    checkpointeger_time_utc:
+      type: string
+    checkpointeger_completed:
+      type: string
+    checkpointeger_completion_time:
+      type: string
+    checkpointeger_completion_time_utc:
+      type: string
+    meta:
+      type: string
+    entry:
+      type: string
+    data: 
+      type: string
+    failures:
+      type: string
+    crawl_status:
+      type: string
+
+
+option_resp:
+  type: object
+  properties:
+    name:
+      type: string
+    value:
+      type: string
+    default_value:
+      type: string
+    configurable:
+      type: boolean
+    modified:
+      type: boolean
+
+
+ssh_public_key:
+  type: object
+  properties:
+    peerid:
+      type: string
+      format: uuid
+    gsyncd:
+      type: string
+    tar:
+      type: string
+
+
+

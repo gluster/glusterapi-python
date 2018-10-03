@@ -1,0 +1,167 @@
+{
+	"openapi": "3.0.0",
+	"servers": [
+		{
+			"description": "SwaggerHub API Auto Mocking",
+			"url": "https://virtserver.swaggerhub.com/Red-Hat93/GD2-Py/1.0.0"
+		},
+		{
+			"description": "SwaggerHub API Auto Mocking",
+			"url": "http://localhost:24007"
+		}
+	],
+	"info": {
+		"description": "Gluster Management APIs",
+		"version": "1.0.0",
+		"title": "Gluster Management API",
+		"contact": {
+			"email": "you@your-company.com"
+		},
+		"license": {
+			"name": "Apache 2.0",
+			"url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+		}
+	},
+	"tags": [
+		{
+			"name": "admins",
+			"description": "Secured Admin-only calls"
+		},
+		{
+			"name": "developers",
+			"description": "Operations available to regular developers"
+		}
+	],
+	"components": {
+		"securitySchemes": {
+			"bearerAuth": {
+				"type": "http",
+				"scheme": "bearer",
+				"bearerFormat": "JWT"
+			}
+		}
+	},
+	"security": [
+		{
+			"bearerAuth": []
+		}
+	],
+	"paths": {
+		"/peers": {
+			"get": {
+				"operationId": "GetPeers",
+				"responses": {
+					"200": {
+						"$ref": "./peers.json#/peersinfo/responses/200"
+					}
+				}
+			},
+			"post": {
+				"operationId": "AddPeer",
+				"requestBody": {
+					"$ref": "./peers.json#/peeradd/r2Body"
+				},
+				"responses": {
+					"201": {
+						"$ref": "./peers.json#/peeradd/responses/201"
+					}
+				}
+			}
+		},
+		"/peers/{peerid}": {
+			"get": {
+				"operationId": "GetPeer",
+				"parameters": [
+					{
+						"$ref": "./peers.json#/peerinfo/parameters"
+					}
+				],
+				"responses": {
+					"200": {
+						"$ref": "./peers.json#/peerinfo/responses/200"
+					}
+				}
+			},
+			"post": {
+				"operationId": "EditPeer",
+				"parameters": [
+					{
+						"$ref": "./peers.json#/peeredit/parameters"
+					}
+				],
+				"requestBody": {
+					"$ref": "./peers.json#/peeredit/rBody"
+				},
+				"responses": {
+					"200": {
+						"$ref": "./peers.json#/peeredit/responses/200"
+					}
+				}
+			},
+			"delete": {
+				"operationId": "DeletePeer",
+				"parameters": [
+					{
+						"$ref": "./peers.json#/peerdelete/parameters"
+					}
+				],
+				"responses": {
+					"204": {
+						"$ref": "./peers.json#/peerdelete/responses/204"
+					}
+				}
+			}
+		},
+		"/volumes": {
+			"get": {
+				"operationId": "VolumeInfo",
+				"responses": {
+					"200": {
+						"$ref": "./volumes.json#/volinfo/responses/200"
+					}
+				}
+			},
+			"post": {
+				"operationId": "VolumeCreate",
+				"requestBody": {
+					"$ref": "./volumes.json#/volcreate/requestBody"
+				},
+				"responses": {
+					"201": {
+						"$ref": "./volumes.json#/volcreate/responses/201"
+					}
+				}
+			}
+		},
+		"/volumes/{volname}/start": {
+			"post": {
+				"operationId": "VolumeStart",
+				"parameters": [
+					{
+						"$ref": "./volumes.json#/volstart/parameters"
+					}
+				],
+				"responses": {
+					"200": {
+						"$ref": "./volumes.json#/volstart/responses/200"
+					}
+				}
+			}
+		},
+		"/volumes/{volname}/stop": {
+			"post": {
+				"operationId": "VolumeStop",
+				"parameters": [
+					{
+						"$ref": "./volumes.json#/volstop/parameters"
+					}
+				],
+				"responses": {
+					"200": {
+						"$ref": "./volumes.json#/volstop/responses/200"
+					}
+				}
+			}
+		}
+	}
+}

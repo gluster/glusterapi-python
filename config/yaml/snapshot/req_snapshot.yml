@@ -1,0 +1,31 @@
+---
+create:
+  type: object
+  properties:
+    volname:
+      type: string
+    snapname:
+      type: string
+    timestamp:
+      type: boolean
+    description:
+      type: string
+    force:
+      type: boolean
+
+
+activate:
+  type: object
+  properties:
+    force:
+      type: boolean
+
+
+clone:
+  type: object
+  properties:
+    clonename:
+      type: string
+
+
+
