@@ -1,0 +1,69 @@
+{
+	"heal_info1": {
+		"parameters1": {
+			"in": "path",
+			"name": "volname",
+			"schema": {
+				"type": "string"
+			},
+			"required": true
+		},
+		"parameters2": {
+			"in": "path",
+			"name": "opts",
+			"schema": {
+				"type": "string"
+			},
+			"required": true
+		},
+		"responses": {
+			"200": {
+				"content": {
+					"application/json": {
+						"schema": {
+							"$ref": "./resp_selfheal.json#/brick_heal"
+						}
+					}
+				}
+			}
+		}
+	},
+	"heal_info2": {
+		"parameters": {
+			"in": "path",
+			"name": "volname",
+			"schema": {
+				"type": "string"
+			},
+			"required": true
+		},
+		"responses": {
+			"201": {
+				"content": {
+					"application/json": {
+						"schema": {
+							"$ref": "./resp_selfheal.json#/brick_heal"
+						}
+					}
+				}
+			}
+		}
+	},
+	"self_heal": {
+		"parameters": {
+			"in": "path",
+			"name": "volname",
+			"schema": {
+				"type": "string"
+			},
+			"required": true
+		},
+		"responses": {
+			"202": {
+				"content": {
+
+				}
+			}
+		}
+	}
+}

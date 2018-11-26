@@ -1,0 +1,83 @@
+---
+create:
+  type: object
+  properties:
+    mastervol:
+        type: string
+    remoteuser:
+        type: string
+    remotehosts:
+        type: array
+        items:
+          $ref: './req_georep.yml#/remotehost'
+    remotevol:
+        type: string
+    force:
+        type: boolean
+
+
+remotehost:
+  type: object
+  properties:
+    peerid:
+      type: string
+    hostname:
+      type: string
+
+
+start:
+  type: object
+  properties:
+    force:
+      type: boolean
+
+
+stop:
+  type: object
+  properties:
+    force:
+      type: boolean
+
+pause:
+  type: object
+  properties:
+    force:
+      type: boolean
+
+
+resume:
+  type: object
+  properties:
+    force:
+      type: boolean
+
+
+option:
+  type: object
+  properties:
+    name:
+      type: string
+    value:
+      type: string
+    default_value:
+      type: string
+    configurable:
+      type: boolean
+    modified:
+      type: boolean
+
+
+ssh_public_key:
+  type: object
+  properties:
+    peerid:
+      type: string
+      format: uuid
+    gsyncd:
+      type: string
+    tar:
+      type: string
+
+
+
+      

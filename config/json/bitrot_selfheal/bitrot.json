@@ -1,0 +1,46 @@
+{
+	"parameters": {
+		"in": "path",
+		"name": "volname",
+		"schema": {
+			"type": "string"
+		},
+		"required": true
+	},
+	"bitrot_enable": {
+		"responses": {
+			"200": {
+				"content": {
+
+				}
+			}
+		}
+	},
+	"bitrot_disable": {
+		"responses": {
+			"201": {
+				"content": {
+
+				}
+			}
+		}
+	},
+	"bitrot_scrub": {
+		"responses": {
+			"202": {
+				"content": {
+
+				}
+			}
+		}
+	},
+	"bitrot_scrub_status": {
+		"responses": {
+			"203": {
+				"content": {
+
+				}
+			}
+		}
+	}
+}

@@ -1,0 +1,23 @@
+---
+add:
+     type: object
+     required:
+       - addresses
+     properties:
+       addresses:
+         type: array
+         items:
+           type: string
+       zone:
+         type: string
+       metadata:
+         type: object
+
+edit:
+     type: object
+     properties:
+       zone:
+         type: string
+       metadata:
+         type: object
+  

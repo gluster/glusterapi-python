@@ -1,0 +1,91 @@
+---
+# Volume Info
+volinfo:
+  summary: Get Volumes information
+  responses:
+      200:
+        description: List of Gluster Volumes
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: './resp_volume.yml#/volume'
+              example:
+                $ref: "./resp_volume_example.yml#/started"
+# Volume Create
+volcreate:
+  requestBody:
+     description: Volume Create
+     required: true     
+     content:
+      application/json:
+        schema:
+          oneOf:
+            - $ref: './req_volume.yml#/auto'
+            - $ref: './req_volume.yml#/manual'
+              
+  responses:
+      201:
+        description: Volume info
+        content:
+          application/json:
+            schema:
+              $ref: './resp_volume.yml#/volume'
+            example:
+              $ref: './resp_volume_example.yml#/created'
+# Volume Start
+volstart:
+  summary: Start Volume
+  parameters:
+      in: path
+      name: volname
+      schema:
+        type: string
+      required: true
+      description: Volume Name
+      example: gv1
+  responses:
+      200:
+        description: Volume info
+        content:
+          application/json:
+            schema:
+              $ref: './resp_volume.yml#/volume'
+            example:
+              $ref: './resp_volume_example.yml#/started'
+# Volume Stop
+volstop:
+  summary: Stop Volume
+  parameters:
+      in: path
+      name: volname
+      schema:
+        type: string
+      required: true
+      description: Volume Name
+      example: gv1
+  responses:
+      200:
+        description: Volume info
+        content:
+          application/json:
+            schema:
+              $ref: './resp_volume.yml#/volume'
+            example:
+              $ref: './resp_volume_example.yml#/stopped'
+
+components:
+     requestBody:
+         VolumeCreate:
+             description: Volume Create
+             required: true     
+             content:
+              application/json:
+                schema:
+                  $ref: './resp_volume.yml#/volume'
+                example:
+                  $ref: './resp_volume_example.yml#/stopped'
+                    
+                   
+               

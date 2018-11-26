@@ -1,0 +1,157 @@
+---
+auto:
+  type: object
+  description: Create Volume with bricks auto provisioned
+  required: 
+    - size
+  properties:
+    size:
+      description: Volume Size
+      type: integer
+    name:
+      description: Volume Name
+      type: string
+    transport:
+      description: Transport Type
+      type: string
+    force:
+      description: Force
+      type: boolean
+    options:
+      description: Options to be configured
+      type: object
+    advanced:
+      description: Allow setting advanced options
+      type: boolean
+    experimental:
+      description: Allow setting experimental options
+      type: boolean
+    deprecated:
+      description: Allow setting deprecated options
+      type: boolean
+    metadata:
+      description: Set Volume Metadata
+      type: object
+    flags:
+      description: Set Flags
+      type: object
+    distribute:
+      description: Distribute count
+      type: integer
+    replica:
+      description: Replica Count
+      type: integer
+    arbiter:
+      description: Arbiter Count
+      type: integer
+    disperse:
+      description: Disperse count
+      type: integer
+    disperse-redundancy:
+      description: Disperse Redundancy count
+      type: integer
+    disperse-data:
+      description: Disperse Data count
+      type: integer
+    snapshot:
+      description: Enable Snapshot for the Volume
+      type: boolean
+    snapshot-reserve-factor:
+      description: Snapshot reserve factor
+      type: number
+    limit-peers:
+      description: Create Volume only from these peers
+      type: array
+      items:
+        type: string
+    limit-zones:
+      description: Create Volume only from these zones
+      type: array
+      items:
+        type: string
+    exclude-peers:
+      description: Do not create Volume from these peers
+      type: array
+      items:
+        type: string
+    exclude-zones:
+      description: Do not create Volume from these zones
+      type: array
+      items:
+        type: string
+    subvolume-zones-overlap:
+      description: Bricks of different subvolume can be created on same device/peer/zone
+      type: boolean
+
+manual:
+  type: object
+  description: Create Volume with bricks manually provisioned
+  properties:
+    name:
+      description: Volume Name
+      type: string
+    transport:
+      description: Transport Type
+      type: string
+    force:
+      description: Force
+      type: boolean
+    subvols:
+      description: List of sub volumes
+      type: array
+      items:
+         $ref: './req_volume.yml#/subvol'
+    options:
+      description: Options to be configured
+      type: object
+    advanced:
+      description: Allow setting advanced options
+      type: boolean
+    experimental:
+      description: Allow setting experimental options
+      type: boolean
+    deprecated:
+      description: Allow setting deprecated options
+      type: boolean
+    metadata:
+      description: Set Volume Metadata
+      type: object
+    flags:
+      description: Set Flags
+      type: object
+  example:
+      $ref: './req_volume_example.yml#/manual'
+
+subvol:
+      type: object
+      properties:
+        name:
+          type: string
+        type:
+          type: string
+        replica-count:
+          type: integer
+        arbiter-count:
+          type: integer
+        bricks:
+          type: array
+          items:
+             $ref: './req_volume.yml#/brick'
+            
+brick:
+        type: object
+        properties:
+          id:
+            type: string
+          path:
+            type: string
+          volume-id:
+            type: string
+          volume-name:
+            type: string
+          peer-id:
+            type: string
+          host:
+            type: string
+          type:
+            type: string

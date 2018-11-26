@@ -1,0 +1,163 @@
+---
+create_resp:
+  type: object
+  properties:
+    snapinfo:
+      $ref: './resp_snapshot.yml#/volume'
+    parentname:
+      type: string
+    description:
+      type: string
+    created-at:
+      type: string
+
+
+snap_list:
+  type: array
+  properties:
+    parentname:
+      type: string
+    snaps:
+      type: array
+      items:
+        $ref: './resp_snapshot.yml#/create_resp'
+    
+
+status:
+  type: object
+  properties:
+    parentname:
+      type: string
+    snaps:
+      type: string
+    id:
+      type: string
+      format: uuid
+    snapbrickstatus:
+      type: array
+      items:
+        $ref: './resp_snapshot.yml#/snap_brick_status'
+
+
+snap_brick_status:
+  type: object
+  properties:
+    brick:
+      $ref: './resp_snapshot.yml#/brick_status'
+    lvs-data:
+      $ref: './resp_snapshot.yml#/lvs_data'
+
+
+brick_status:
+  type: object
+  properties:
+    info:
+      $ref: './resp_snapshot.yml#/brick'
+    online:
+      type: boolean
+    pid:
+      type: integer
+    port:
+      type: integer
+    fs-type:
+      type: string
+    mount-ops:
+      type: string
+    device:
+      type: string
+    size:
+      $ref: './resp_snapshot.yml#/size_info'
+
+
+size_info:
+  type: object
+  properties:
+    capacity:
+      type: string
+    used:
+      type: string
+    free:
+      type: string
+
+
+lvs_data:
+  type: object
+  properties:
+    vgname:
+      type: string
+    datapercentage:
+      type: number
+      format: float
+    lvsize:
+      type: string
+    pool-lv:
+      type: string
+
+    
+volume:
+  type: object
+  properties:
+    id:
+      type: string
+    name:
+      type: string
+    type:
+      type: string
+    transport:
+      type: string
+    distribute-count:
+      type: integer
+    replica-count:
+      type: integer
+    arbiter-count:
+      type: integer
+    options:
+      type: object
+    state:
+      type: string
+    subvols:
+      type: array
+      items:
+        $ref: './resp_snapshot.yml#/subvol'
+    metadata:
+      type: object
+    snap-list:
+      type: array
+      items:
+        type: string
+
+
+subvol:
+  type: object
+  properties:
+    name:
+      type: string
+    type:
+      type: string
+    replica-count:
+      type: integer
+    arbiter-count:
+      type: integer
+    bricks:
+      type: array
+      items:
+        $ref: './resp_snapshot.yml#/brick'
+
+
+brick:
+  type: object
+  properties:
+    id:
+      type: string
+    path:
+      type: string
+    volume-id:
+      type: string
+    volume-name:
+      type: string
+    peer-id:
+      type: string
+    host:
+      type: string
+    type:
+      type: string

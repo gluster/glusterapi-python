@@ -1,0 +1,201 @@
+{
+	"snapshot_create": {
+		"SnapCreateReq": {
+			"content": {
+				"application/json": {
+					"schema": {
+						"$ref": "./req_snapshot.json#/create"
+					}
+				}
+			}
+		},
+		"SnapCreateResp": {
+			"200": {
+				"description": "Session created response",
+				"content": {
+					"application/json": {
+						"schema": {
+							"$ref": "./resp_snapshot.json#/create_resp"
+						}
+					}
+				}
+			}
+		}
+	},
+	"snapshot_list": {
+		"SnapListResp": {
+			"201": {
+				"description": "List snapshot",
+				"content": {
+					"application/json": {
+						"schema": {
+							"$ref": "./resp_snapshot.json#/snap_list"
+						}
+					}
+				}
+			}
+		}
+	},
+	"snapshot_activate": {
+		"parameters": {
+			"in": "path",
+			"name": "snapname",
+			"schema": {
+				"type": "string"
+			},
+			"required": true
+		},
+		"SnapActivateReq": {
+			"content": {
+				"application/json": {
+					"schema": {
+						"$ref": "./req_snapshot.json#/activate"
+					}
+				}
+			}
+		},
+		"SnapActivateResp": {
+			"202": {
+				"description": "Session activate response",
+				"content": {
+					"application/json": {
+						"schema": {
+							"$ref": "./resp_snapshot.json#/create_resp"
+						}
+					}
+				}
+			}
+		}
+	},
+	"snapshot_deactivate": {
+		"parameters": {
+			"in": "path",
+			"name": "snapname",
+			"schema": {
+				"type": "string"
+			},
+			"required": true
+		},
+		"SnapDeactivateResp": {
+			"203": {
+				"description": "Snapshot deactivate response",
+				"content": {
+					"application/json": {
+						"schema": {
+							"$ref": "./resp_snapshot.json#/create_resp"
+						}
+					}
+				}
+			}
+		}
+	},
+	"snapshot_clone": {
+		"parameters": {
+			"in": "path",
+			"name": "snapname",
+			"schema": {
+				"type": "string"
+			},
+			"required": true
+		},
+		"SnapCloneReq": {
+			"content": {
+				"application/json": {
+					"schema": {
+						"$ref": "./req_snapshot.json#/clone"
+					}
+				}
+			}
+		},
+		"SnapCloneResp": {
+			"204": {
+				"description": "Snapshot clone response",
+				"content": {
+					"application/json": {
+						"schema": {
+							"$ref": "./resp_snapshot.json#/volume"
+						}
+					}
+				}
+			}
+		}
+	},
+	"snapshot_restore": {
+		"parameters": {
+			"in": "path",
+			"name": "snapname",
+			"schema": {
+				"type": "string"
+			},
+			"required": true
+		},
+		"SnapRestoreResp": {
+			"205": {
+				"description": "Snapshot restore response",
+				"content": {
+				}
+			}
+		}
+	},
+	"snapshot_info": {
+		"parameters": {
+			"in": "path",
+			"name": "snapname",
+			"schema": {
+				"type": "string"
+			},
+			"required": true
+		},
+		"SnapGetResp": {
+			"206": {
+				"description": "Snapshot info response",
+				"content": {
+					"application/json": {
+						"schema": {
+							"$ref": "./resp_snapshot.json#/create_resp"
+						}
+					}
+				}
+			}
+		}
+	},
+	"snapshot_status": {
+		"parameters": {
+			"in": "path",
+			"name": "snapname",
+			"schema": {
+				"type": "string"
+			},
+			"required": true
+		},
+		"SnapStatusResp": {
+			"207": {
+				"description": "Snapshot status response",
+				"content": {
+					"application/json": {
+						"schema": {
+							"$ref": "./resp_snapshot.json#/status"
+						}
+					}
+				}
+			}
+		}
+	},
+	"snapshot_delete": {
+		"parameters": {
+			"in": "path",
+			"name": "snapname",
+			"schema": {
+				"type": "string"
+			},
+			"required": true
+		},
+		"responses": {
+			"208": {
+				"description": "Snapshot delete response",
+				"content": {
+				}
+			}
+		}
+	}
+}

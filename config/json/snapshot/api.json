@@ -1,0 +1,181 @@
+{
+	"openapi": "3.0.0",
+	"servers": [
+		{
+			"description": "SwaggerHub API Auto Mocking",
+			"url": "https://virtserver.swaggerhub.com/Red-Hat93/GD2-Py/1.0.0"
+		},
+		{
+			"description": "SwaggerHub API Auto Mocking",
+			"url": "http://localhost:24007"
+		}
+	],
+	"info": {
+		"description": "Gluster Management APIs",
+		"version": "1.0.0",
+		"title": "Gluster Management API",
+		"contact": {
+			"email": "you@your-company.com"
+		},
+		"license": {
+			"name": "Apache 2.0",
+			"url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+		}
+	},
+	"tags": [
+		{
+			"name": "admins",
+			"description": "Secured Admin-only calls"
+		},
+		{
+			"name": "developers",
+			"description": "Operations available to regular developers"
+		}
+	],
+	"components": {
+                "securitySchemes": {
+                        "bearerAuth": {
+                                "type": "http",
+                                "scheme": "bearer",
+                                "bearerFormat": "JWT"
+                        }
+                }
+        },
+        "security": [
+                {
+                        "bearerAuth": []
+                }
+        ],
+	"paths": {
+		"/snapshots": {
+			"post": {
+				"operationId": "SnapshotCreate",
+				"requestBody": {
+					"$ref": "./snapshot.json#/snapshot_create/SnapCreateReq"
+				},
+				"responses": {
+					"200": {
+						"$ref": "./snapshot.json#/snapshot_create/SnapCreateResp/200"
+					}
+				}
+			},
+			"get": {
+				"operationId": "SnapshotListAll",
+				"responses": {
+					"201": {
+						"$ref": "./snapshot.json#/snapshot_list/SnapListResp/201"
+					}
+				}
+			}
+		},
+		"/snapshots/{snapname}/activate": {
+			"post": {
+				"operationId": "SnapshotActivate",
+				"parameters": [
+					{
+						"$ref": "./snapshot.json#/snapshot_activate/parameters"
+					}
+				],
+				"requestBody": {
+					"$ref": "./snapshot.json#/snapshot_activate/SnapActivateReq"
+				},
+				"responses": {
+					"202": {
+						"$ref": "./snapshot.json#/snapshot_activate/SnapActivateResp/202"
+					}
+				}
+			}
+		},
+		"/snapshots/{snapname}/deactivate": {
+			"post": {
+				"operationId": "SnapshotDeactivate",
+				"parameters": [
+					{
+						"$ref": "./snapshot.json#/snapshot_deactivate/parameters"
+					}
+				],
+				"responses": {
+					"203": {
+						"$ref": "./snapshot.json#/snapshot_deactivate/SnapDeactivateResp/203"
+					}
+				}
+			}
+		},
+		"/snapshots/{snapname}/clone": {
+			"post": {
+				"operationId": "SnapshotClone",
+				"parameters": [
+					{
+						"$ref": "./snapshot.json#/snapshot_clone/parameters"
+					}
+				],
+				"requestBody": {
+					"$ref": "./snapshot.json#/snapshot_clone/SnapCloneReq"
+				},
+				"responses": {
+					"204": {
+						"$ref": "./snapshot.json#/snapshot_clone/SnapCloneResp/204"
+					}
+				}
+			}
+		},
+		"/snapshots/{snapname}/restore": {
+			"post": {
+				"operationId": "SnapshotRestore",
+				"parameters": [
+					{
+						"$ref": "./snapshot.json#/snapshot_restore/parameters"
+					}
+				],
+				"responses": {
+					"205": {
+						"$ref": "./snapshot.json#/snapshot_restore/SnapRestoreResp/205"
+					}
+				}
+			}
+		},
+		"/snapshots/{snapname}": {
+			"get": {
+				"operationId": "SnapshotInfo",
+				"parameters": [
+					{
+						"$ref": "./snapshot.json#/snapshot_info/parameters"
+					}
+				],
+				"responses": {
+					"206": {
+						"$ref": "./snapshot.json#/snapshot_info/SnapGetResp/206"
+					}
+				}
+			},
+			"delete": {
+				"operationId": "SnapshotDelete",
+				"parameters": [
+					{
+						"$ref": "./snapshot.json#/snapshot_delete/parameters"
+					}
+				],
+				"responses": {
+					"208": {
+						"$ref": "./snapshot.json#/snapshot_delete/responses/208"
+					}
+				}
+			}
+		},
+		"/snapshots/{snapname}/status": {
+			"get": {
+				"operationId": "SnapshotStatus",
+				"parameters": [
+					{
+						"$ref": "./snapshot.json#/snapshot_status/parameters"
+					}
+				],
+				"responses": {
+					"207": {
+						"$ref": "./snapshot.json#/snapshot_status/SnapStatusResp/207"
+					}
+				}
+			}
+		}
+	}
+}

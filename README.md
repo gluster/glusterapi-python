@@ -1,17 +1,6 @@
 # python-gluster-mgmt-client
-
-python-gluster-mgmt-client provides python bindings for the GlusterD-2.0 APIs.
-GlusterD-2.0 is the upcoming rewrite of the Gluster management service.
-
-## Documentation
-* [Quick Start User Guide](doc/quick-start-user-guide.md)
-* [Development Guide](doc/development-guide.md)
-
-## Contributing
-We use the Github pull-request model for accepting contributions.
- 
- If you are not familiar with the pull request model please read ["Using pull requests"](https://help.github.com/articles/using-pull-requests/).
- For specific information on the python bindings for GD2 APIs, refer the [Development Guide](doc/development-guide.md).
-
-## Copyright and License
-GNU General Public license v3
+python-gluster-mgmt-client generates client libraries from an OpenAPI spec 3 api definition. The code generator used is [openapi-generator](https://github.com/OpenAPITools/openapi-generator) which is a fork project of swagger-codegen. Care must be taken when defining the api under OpenAPI spec 3 because the swagger parser is still under active development and definitions especially ones which use external refs must be written carefully. Also the multiple yaml/json files must be in the same directory as placing the yaml/json files in multiple directories will produce errors and is not supported by the parser as of now. The yaml/json api definitions are inside the config directory.
+# Documentation
+  * [Client library Generation](utils/client_library_generation.md)
+  * [Library usage](docs/library_usage.md)
+  
